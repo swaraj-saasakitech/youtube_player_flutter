@@ -130,6 +130,13 @@ class YoutubePlayer extends StatefulWidget {
   /// {@endtemplate}
   final bool showVideoProgressIndicator;
 
+  /// {@template youtube_player_flutter.showVideoProgressIndicator}
+  /// Defines overlay to video.
+  ///
+  /// Default is false.
+  /// {@endtemplate}
+  final Widget? videoOverlay;
+
   /// Creates [YoutubePlayer] widget.
   const YoutubePlayer({
     this.key,
@@ -148,6 +155,7 @@ class YoutubePlayer extends StatefulWidget {
     this.actionsPadding = const EdgeInsets.all(8.0),
     this.thumbnail,
     this.showVideoProgressIndicator = false,
+    this.videoOverlay,
   })  : progressColors = progressColors ?? const ProgressBarColors(),
         progressIndicatorColor = progressIndicatorColor ?? Colors.red;
 
@@ -342,6 +350,21 @@ class _YoutubePlayerState extends State<YoutubePlayer> {
               ),
             ),
           if (!controller.flags.hideControls) ...[
+            if (widget.videoOverlay != null)
+              Positioned(
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: AnimatedOpacity(
+                  opacity: !controller.flags.hideControls &&
+                          controller.value.isControlsVisible
+                      ? 1
+                      : 0,
+                  duration: const Duration(milliseconds: 300),
+                  child: widget.videoOverlay ?? const SizedBox(),
+                ),
+              ),
             TouchShutter(
               disableDragSeek: controller.flags.disableDragSeek,
               timeOut: widget.controlsTimeOut,
