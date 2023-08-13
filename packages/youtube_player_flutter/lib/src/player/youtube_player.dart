@@ -136,6 +136,7 @@ class YoutubePlayer extends StatefulWidget {
   /// Default is false.
   /// {@endtemplate}
   final Widget? videoOverlay;
+  final Widget? videoOverlayAlways;
 
   /// Creates [YoutubePlayer] widget.
   const YoutubePlayer({
@@ -156,6 +157,7 @@ class YoutubePlayer extends StatefulWidget {
     this.thumbnail,
     this.showVideoProgressIndicator = false,
     this.videoOverlay,
+    this.videoOverlayAlways,
   })  : progressColors = progressColors ?? const ProgressBarColors(),
         progressIndicatorColor = progressIndicatorColor ?? Colors.red;
 
@@ -431,6 +433,7 @@ class _YoutubePlayerState extends State<YoutubePlayer> {
               child: PlayPauseButton(),
             ),
           if (controller.value.hasError) errorWidget,
+          if (widget.videoOverlayAlways != null) widget.videoOverlayAlways,
         ],
       ),
     );
