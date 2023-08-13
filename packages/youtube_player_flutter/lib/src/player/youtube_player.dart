@@ -433,7 +433,7 @@ class _YoutubePlayerState extends State<YoutubePlayer> {
               child: PlayPauseButton(),
             ),
           if (controller.value.hasError) errorWidget,
-          if (widget.videoOverlayAlways != null) widget.videoOverlayAlways,
+          if (widget.videoOverlayAlways != null) widget.videoOverlayAlways!,
         ],
       ),
     );
